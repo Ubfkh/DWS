@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<!-- Indica que el documento utiliza HTML5 -->
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Permite mostrar correctamente los caracteres especiales, como las tildes -->
+    <meta charset="UTF-8">
+
+    <!-- Adapta el ancho de la página al dispositivo, especialmente al móvil -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Título que aparece en la pestaña del navegador -->
+    <title>Mi plan de estudio</title>
+
+    <!-- Estilos CSS para mejorar la apariencia de la página -->
+    <style>
+        /* Incluye el padding y el borde dentro del tamaño total de los elementos */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Estilos generales de la página */
+        body {
+            margin: 0;
+            padding: 24px;
+            font-family: Arial, sans-serif;
+            background: #f3f6fb;
+            color: #243047;
+        }
+
+        /* Contenedor principal del contenido */
+        main {
+            max-width: 720px;
+            margin: 30px auto;
+            padding: 32px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.07);
+        }
+
+        /* Color y separación del título principal */
+        h1 {
+            margin-bottom: 8px;
+            color: #2457a7;
+        }
+
+        /* Estilo del texto introductorio */
+        .intro {
+            color: #637083;
+            line-height: 1.6;
+        }
+
+        /* Caja que contiene el resumen del plan de estudio */
+        .resumen {
+            margin: 24px 0;
+            padding: 18px;
+            background: #edf4ff;
+            border-radius: 12px;
+        }
+
+        /* Reduce la separación entre los párrafos del resumen */
+        .resumen p {
+            margin: 6px 0;
+        }
+
+        /* Elimina las viñetas y el espacio predeterminado de la lista */
+        .asignaturas {
+            padding: 0;
+            list-style: none;
+        }
+
+        /* Presenta cada asignatura en una fila con su duración a la derecha */
+        .asignaturas li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin: 12px 0;
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+        }
+
+        /* Destaca la duración de cada asignatura */
+        .duracion {
+            flex-shrink: 0;
+            color: #2457a7;
+            font-weight: bold;
+        }
+
+        /* Estilo del mensaje final */
+        footer {
+            margin-top: 24px;
+            color: #637083;
+            font-size: 0.9rem;
+        }
+
+        /* Ajustes para pantallas pequeñas, como las de los móviles */
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            main {
+                margin: 12px auto;
+                padding: 20px;
+            }
+
+            .asignaturas li {
+                align-items: flex-start;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Contiene todo el contenido visible de la página -->
+<main>
+
+    <!-- Saluda al estudiante e inserta su nombre desde el controlador -->
+    <h1>
+        ¡Hola, <span th:text="${nombre}">estudiante</span>!
+    </h1>
+
+    <!-- Presenta una breve introducción al plan de estudio -->
+    <p class="intro">
+        Este es tu plan de estudio para hoy.
+        Organiza tu tiempo y avanza paso a paso hacia tus objetivos.
+    </p>
+
+    <!-- Sección con el resumen de las asignaturas y el tiempo de estudio -->
+    <section class="resumen">
+
+        <h2>Resumen del día</h2>
+
+        <!-- #lists.size() cuenta cuántos elementos tiene la lista de asignaturas -->
+        <p>
+            Asignaturas previstas:
+            <strong th:text="${#lists.size(asignaturas)}">3</strong>
+        </p>
+
+        <!-- Muestra el total de minutos calculado en el controlador -->
+        <p>
+            Tiempo total de estudio:
+            <strong th:text="${totalMinutos}">95</strong> minutos
+        </p>
+
+    </section>
+
+    <!-- Sección que muestra las asignaturas previstas para el día -->
+    <section>
+
+        <h2>Mis asignaturas</h2>
+
+        <!-- Lista HTML que Thymeleaf rellenará con los datos del controlador -->
+        <ul class="asignaturas">
+
+            <!--
+                th:each recorre la lista de asignaturas.
+                asignatura contiene el nombre de la asignatura actual.
+                iterStat guarda el estado de la iteración, incluido su índice.
+            -->
+            <li th:each="asignatura, iterStat : ${asignaturas}">
+
+                <span>
+                    <!--
+                        iterStat.index empieza en 0.
+                        Sumamos 1 para numerar las asignaturas desde el 1.
+                        th:text inserta el nombre como texto seguro.
+                    -->
+                    <strong th:text="${iterStat.index + 1}">1</strong>.
+                    <span th:text="${asignatura}">Programación</span>
+                </span>
+
+                <!--
+                    Consultamos duraciones usando el índice de la asignatura.
+                    Así, la posición 0 corresponde a Programación,
+                    la posición 1 a Bases de datos y la posición 2
+                    a Lenguajes de marcas.
+                    #numbers.formatDecimal() muestra el número sin decimales,
+                    con al menos una cifra entera.
+                -->
+                <span class="duracion"
+                      th:text="${#numbers.formatDecimal(duraciones[iterStat.index], 1, 0)} + ' min'">
+                    25 min
+                </span>
+
+            </li>
+
+        </ul>
+
+    </section>
+
+    <!-- Mensaje de ánimo situado al final de la página -->
+    <footer>
+        ¡Mucho ánimo con tus estudios!
+    </footer>
+
+</main>
+
+</body>
+</html>
