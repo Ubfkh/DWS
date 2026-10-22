@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<main>
+    <h1>Resumen de la solicitud</h1>
+
+    <p class="aviso">
+        Este resumen es informativo. No se ha guardado ni aprobado
+        ninguna reserva.
+    </p>
+
+    <h2>Datos de la persona solicitante</h2>
+    <p><strong>Nombre:</strong>
+        <span th:text="${solicitud.nombre}"></span>
+    </p>
+    <p><strong>Correo:</strong>
+        <span th:text="${solicitud.email}"></span>
+    </p>
+
+    <h2>Material</h2>
+    <p><strong>Código:</strong>
+        <span th:text="${material[0]}"></span>
+    </p>
+    <p><strong>Nombre:</strong>
+        <span th:text="${material[1]}"></span>
+    </p>
+    <p><strong>Descripción:</strong>
+        <span th:text="${material[2]}"></span>
+    </p>
+    <p><strong>Unidades:</strong>
+        <span th:text="${solicitud.cantidad}"></span>
+    </p>
+
+    <h2>Fechas</h2>
+    <p><strong>Recogida:</strong>
+        <span th:text="${solicitud.fechaRecogida}"></span>
+    </p>
+    <p><strong>Devolución:</strong>
+        <span th:text="${solicitud.fechaDevolucion}"></span>
+    </p>
+    <p><strong>Días de préstamo:</strong>
+        <span th:text="${diasPrestamo}"></span>
+    </p>
+    <p><strong>Total de días-unidad:</strong>
+        <span th:text="${totalDiasUnidad}"></span>
+    </p>
+
+    <p th:if="${diasPrestamo == 1}">
+        El préstamo solicitado es de un día.
+    </p>
+    <p th:unless="${diasPrestamo == 1}">
+        El préstamo solicitado es de varios días.
+    </p>
+
+    <h2>Motivo</h2>
+    <p th:text="${solicitud.motivo}"></p>
+
+    <p><a th:href="@{/}">Volver al catálogo</a></p>
+</main>
+</body>
+</html>

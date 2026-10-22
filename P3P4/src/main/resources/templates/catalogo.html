@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<h1>Catálogo del aula maker</h1>
+<p>Consulta los materiales disponibles y accede a sus fichas.</p>
+
+<section th:each="m : ${materiales}" class="material">
+    <h2 th:text="${m[1]}">Nombre del material</h2>
+    <p><strong>Código:</strong> <span th:text="${m[0]}"></span></p>
+    <p th:text="${m[2]}">Descripción del material</p>
+
+    <a th:href="@{/materiales/{codigo}(codigo=${m[0]})}">
+        Consultar ficha
+    </a>
+</section>
+</body>
+</html>

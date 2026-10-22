@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<main>
+    <h1 th:text="${material[1]}">Material</h1>
+
+    <p><strong>Código:</strong>
+        <span th:text="${material[0]}"></span>
+    </p>
+
+    <p><strong>Descripción:</strong>
+        <span th:text="${material[2]}"></span>
+    </p>
+
+    <p><strong>Turno consultado:</strong>
+        <span th:text="${turno}"></span>
+    </p>
+
+    <a th:href="@{/solicitud/nueva}">Solicitar préstamo</a>
+    <a th:href="@{/}">Volver al catálogo</a>
+</main>
+</body>
+</html>

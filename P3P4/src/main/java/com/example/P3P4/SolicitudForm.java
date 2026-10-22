@@ -22,7 +22,8 @@ public class SolicitudForm {
     private String material;
 
     @NotNull(message = "Escribe cuántos quieres")
-    @Min(value = 0, message = "No puedes pedir una cantidad negativa")
+    @Min(value = 1, message = "Tienes que pedir uno al menos")
+    @Max(value = 3, message = "No pidas tantos, solo tres como máximo")
     private Integer cantidad;
 
     @NotNull(message = "Tendrás que recogerlo algún día")
