@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>VISITAS</h1>
+    <p>Consulta las visitas que tenemos</p>
+
+    <section th:each = "v : ${visitas}" class="visitas">
+        <h2 th:text="${v}">Visita</h2>
+    </section>
+</body>
+</html>
