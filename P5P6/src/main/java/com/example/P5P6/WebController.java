@@ -16,4 +16,9 @@ public class WebController {
 
         return "index";
     }
+
+    @GetMapping("/visita")
+    public String visita (Model model) {
+        return "visita";
+    }
 }
