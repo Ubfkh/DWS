@@ -2,14 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Inicio</title>
+
+    <link rel="stylesheet" th:href="@{/css/cabeceraYPie.css}">
 </head>
 <body>
+    <div th:replace="~{fragments/cabecera :: cabecera}"></div>
     <h1>VISITAS</h1>
     <p>Consulta las visitas que tenemos</p>
 
     <section th:each = "v : ${visitas}" class="visitas">
-        <h2 th:text="${v}">Visita</h2>
+        <a th:href="@{/visita(lugar=${v})}"><h2 th:text="${v}">Visita</h2></a>
     </section>
+
+    <div th:replace="~{fragments/pie :: pie}"></div>
 </body>
 </html>

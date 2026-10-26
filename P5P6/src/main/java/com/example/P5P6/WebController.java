@@ -18,7 +18,9 @@ public class WebController {
     }
 
     @GetMapping("/visita")
-    public String visita (Model model) {
+    public String visita (String lugar, Model model) {
+        model.addAttribute("lugar", lugar);
+        model.addAttribute("visitas", visitas);
         return "visita";
     }
 }
