@@ -2,19 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Inicio</title>
+    <title th:text="#{index.titulo}">Inicio</title>
 
     <link rel="stylesheet" th:href="@{/css/cabeceraYPie.css}">
 </head>
 <body>
+    <!-- Este div es la cabecera, la cual está en otro html -->
     <div th:replace="~{fragments/cabecera :: cabecera}"></div>
-    <h1>VISITAS</h1>
-    <p>Consulta las visitas que tenemos</p>
 
+    <!-- Simplemente esto está para que se vea ligeramente más bonito -->
+    <h1 th:text="#{index.visitas}">VISITAS</h1>
+    <p th:text="#{index.subVisitas}">Consulta las visitas que tenemos</p>
+
+    <!-- Aquí Thymeleaf coge las visitas y las va mostrando una debajo de otra,
+     haciendo además que cada uno sea un enlace a visita.html-->
     <section th:each = "v : ${visitas}" class="visitas">
-        <a th:href="@{/visita(lugar=${v})}"><h2 th:text="${v}">Visita</h2></a>
+        <a th:href="@{/visita(lugar=${v})}"><h2 th:text="#{__${'visitas.' + v + '.titulo'}__}">Visita</h2></a>
     </section>
 
+    <!-- Este div es el pie de página, que está en otro html -->
     <div th:replace="~{fragments/pie :: pie}"></div>
 </body>
 </html>

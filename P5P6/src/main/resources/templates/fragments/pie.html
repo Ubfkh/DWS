@@ -5,9 +5,11 @@
     <title>Title</title>
 </head>
 <body>
+
+    <!-- Este es el pie de página que se mostrará en las otras páginas -->
     <div th:fragment="pie" class="pie">
         <br>
-        <h1 class="pie">Disfruta tu visita</h1>
+        <h1 class="pie" th:text="#{pie}">Disfruta tu visita</h1>
         <br>
     </div>
 </body>

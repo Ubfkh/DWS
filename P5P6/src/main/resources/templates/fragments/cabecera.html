@@ -5,9 +5,20 @@
     <title>Title</title>
 </head>
 <body>
+
+    <!-- Aquí está la cabecera, para ser integrada en las otras páginas -->
     <div th:fragment="cabecera" class="cabecera">
         <br>
-        <h1 class="cabecera">Centro cltural</h1>
+        <h1 class="cabecera" th:text="#{cabecera}">Centro cltural</h1>
+
+        <!-- Esto son los enlaces para seleccionar el idioma, la ruta lleva a su respectivo archivo.properties
+        Al pulsar el enlace vuelve al inicio úlnicamente porque si no lo hace da un error que no sé solucionar y
+        chatgpt me da una solución rara que no entiendo-->
+        <div class="selector-idioma">
+            <a th:href="@{/(lang='es')}">🇪🇸 Español</a>
+            |
+            <a th:href="@{/(lang='en')}">🇬🇧 English</a>
+        </div>
         <br>
     </div>
 </body>

@@ -5,17 +5,24 @@
         <title>Title</title>
 </head>
 <body>
+    <!-- Esto integra la cabecera del otro html -->
     <div th:replace="~{fragments/cabecera :: cabecera}"></div>
 
+    <!-- Esto coge el texto que se le pasa desde el controlador. th:text, que no lo dije antes, sirve para, dado un identificador,
+    coger la traducción de los archivos.properties -->
     <div>
-        <h1 th:text="'Visita nuestro ' + ${lugar}">Visita nuestro </h1>
-        <p th:text="${visita}">
+        <h1 th:text="#{__${'visitanuestro.' + lugar}__}">Visita nuestro </h1>
+        <p th:text="#{__${'visitas.' + lugar + '.descripcion'}__}">
         </p>
     </div>
 
     <br>
     <br>
+
+    <!-- Este enlace es para volver al inicio -->
     <a th:href="@{/}">volver</a>
+
+    <!-- Integra el pie de página -->
     <div th:replace="~{fragments/pie :: pie}"></div>
 </body>
 </html>
