@@ -7,17 +7,9 @@
 <body>
     <div th:replace="~{fragments/cabecera :: cabecera}"></div>
 
-    <div th:if="${lugar == visitas[0]}">
-        <h1>Visita el museo</h1>
-        <p>
-            Descubre nuestras exposiciones y obras de arte.
-        </p>
-    </div>
-
-    <div th:if="${lugar == visitas[1]}">
-        <h1>Visita el parque</h1>
-        <p>
-            Disfruta de la naturaleza y de nuestros jardines.
+    <div>
+        <h1 th:text="'Visita nuestro ' + ${lugar}">Visita nuestro </h1>
+        <p th:text="${visita}">
         </p>
     </div>
 
