@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class WebController {
 
-    private String [][] datos = {
+    private String [][] datosCV = {
             {"Perfil", "Lope", "Estudiante de DAW, desarrollo de aplicaciones web"},
             {"Contacto", "martinezgarcialope@gmail.com"},
             {"Formación", "Bachillerato tecnológico", "DAW"},
@@ -23,8 +23,21 @@ public class WebController {
     @GetMapping("/")
     public String inicio (Model model) {
 
-        model.addAttribute("datos", datos);
-
         return "index";
+    }
+
+    @GetMapping("/curriculum")
+    public String curriculum (Model model){
+
+        model.addAttribute("datos", datosCV);
+
+        return "curriculum";
+    }
+
+    @GetMapping("/portfolio")
+    public String portfolio (Model model){
+
+
+        return "portfolio";
     }
 }

@@ -2,43 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Currículum Lope</title>
-
-    <link rel="stylesheet" th:href="@{/estilos.css}">
+    <title>Inicio</title>
 </head>
 <body>
-    <div th:each="fila, i : ${datos}"
-        th:if="${!#strings.containsIgnoreCase(fila[0], '_AUX')}">
-
-        <h1 th:text="${fila[0]} + ':'"></h1>
-
-        <div th:each="col, j : ${fila}"
-            th:if="${j.index > 0 and i.index + 1 < datos.length and #strings.containsIgnoreCase(datos[i.index + 1][0], '_AUX')}"
-        >
-
-            <p>
-                <strong th:text="${col}"></strong> --- <em th:text="${datos[i.index + 1][j.index]}"
-                                                           th:class="${#strings.contains(datos[i.index + 1][j.index], 'A1')} ? 'nivel-bajo' :
-                                                            (${#strings.contains(datos[i.index + 1][j.index], 'A2')} ? 'nivel-bajo' :
-                        (${#strings.containsIgnoreCase(datos[i.index + 1][j.index], 'Bajo')} ? 'nivel-bajo' :
-                        (${#strings.contains(datos[i.index + 1][j.index], 'B1')} ? 'nivel-medio' :
-                        (${#strings.contains(datos[i.index + 1][j.index], 'B2')} ? 'nivel-medio' :
-                        (${#strings.containsIgnoreCase(datos[i.index + 1][j.index], 'Medio')} ? 'nivel-medio' :
-                        (${#strings.contains(datos[i.index + 1][j.index], 'C1')} ? 'nivel-alto' :
-                        (${#strings.contains(datos[i.index + 1][j.index], 'C2')} ? 'nivel-alto' :
-                        (${#strings.contains(datos[i.index + 1][j.index], 'Alto')} ? 'nivel-alto' :
-                        (${#strings.contains(datos[i.index + 1][j.index], 'Nativo')} ? 'nivel-alto' : '')))))))))"></em>
-            </p>
-        </div>
-
-        <div th:each="col, j : ${fila}"
-             th:if="${j.index > 0}"
-             th:unless="${i.index + 1 < datos.length and #strings.containsIgnoreCase(datos[i.index + 1][0], '_AUX')}"
-        >
-
-            <p th:text="${col}"></p>
-
-        </div>
-    </div>
+    <a th:href="@{/curriculum}">Currículum</a><br>
+    <a th:href="@{/portfolio}">Portfolio</a>
 </body>
 </html>
