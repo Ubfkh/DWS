@@ -2,51 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Portfolio Lope</title>
+    <title>Currículum Lope</title>
+
+    <link rel="stylesheet" th:href="@{/estilos.css}">
 </head>
 <body>
-    <h1>Perfil:</h1>
-    <div>
-        <p>Lope</p>
-        <p>Estudiante de DAW, desarrollo de aplicaciones web</p>
-        <p></p>
-    </div>
-    
-    <br>
-    
-    <h1>Contacto:</h1>
-    <div>
-        <p>martinezgarcialope@gmail.com</p>
-    </div>
-    
-    <br>
-    
-    <h1>Formación:</h1>
-    <div>
-        <p><strong>Bachillerato tecnológico</strong> ---- <em>IES Gerena 2023 - 2025</em></p>
-        <p><strong>DAW</strong> ---- <em>IES Julio Verne // IES Velazquez 2025 - actualidad</em></p>
-    </div>
-    
-    <br>
-    
-    <h1>Experiencia</h1>
-    <div>
-        <p><strong>Prácticas en Ayesa</strong> ---- <em>05/2026 - 06/2026</em></p>
-    </div>
-    
-    <br>
+    <div th:each="fila, i : ${datos}"
+        th:if="${!#strings.containsIgnoreCase(fila[0], '_AUX')}">
 
-    <h1>Habilidades:</h1>
-    <div>
+        <h1 th:text="${fila[0]} + ':'"></h1>
 
-    </div>
+        <div th:each="col, j : ${fila}"
+            th:if="${j.index > 0 and i.index + 1 < datos.length and #strings.containsIgnoreCase(datos[i.index + 1][0], '_AUX')}"
+        >
 
-    <br>
+            <p>
+                <strong th:text="${col}"></strong> --- <em th:text="${datos[i.index + 1][j.index]}"
+                                                           th:class="${#strings.contains(datos[i.index + 1][j.index], 'A1')} ? 'nivel-bajo' :
+                                                            (${#strings.contains(datos[i.index + 1][j.index], 'A2')} ? 'nivel-bajo' :
+                        (${#strings.containsIgnoreCase(datos[i.index + 1][j.index], 'Bajo')} ? 'nivel-bajo' :
+                        (${#strings.contains(datos[i.index + 1][j.index], 'B1')} ? 'nivel-medio' :
+                        (${#strings.contains(datos[i.index + 1][j.index], 'B2')} ? 'nivel-medio' :
+                        (${#strings.containsIgnoreCase(datos[i.index + 1][j.index], 'Medio')} ? 'nivel-medio' :
+                        (${#strings.contains(datos[i.index + 1][j.index], 'C1')} ? 'nivel-alto' :
+                        (${#strings.contains(datos[i.index + 1][j.index], 'C2')} ? 'nivel-alto' :
+                        (${#strings.contains(datos[i.index + 1][j.index], 'Alto')} ? 'nivel-alto' :
+                        (${#strings.contains(datos[i.index + 1][j.index], 'Nativo')} ? 'nivel-alto' : '')))))))))"></em>
+            </p>
+        </div>
 
-    <h1>Idiomas:</h1>
-    <div>
-        <p><strong>Español</strong> - <em>Nativo</em></p>
-        <p><strong>Inglés</strong> - <em>Nivel B1</em></p>
+        <div th:each="col, j : ${fila}"
+             th:if="${j.index > 0}"
+             th:unless="${i.index + 1 < datos.length and #strings.containsIgnoreCase(datos[i.index + 1][0], '_AUX')}"
+        >
+
+            <p th:text="${col}"></p>
+
+        </div>
     </div>
 </body>
 </html>
