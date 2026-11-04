@@ -2,9 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Portfolio</title>
 </head>
 <body>
+    <article th:each="proyecto, i : ${proyectos}">
+        <p>
+            <strong th:text="${proyecto.getTitulo()}"></strong> --- <em th:text="${proyecto.getAno()}"></em>
+        </p><br>
 
+        <div>
+            <p>Categoría: <em th:text="${proyecto.getCategoria()}"></em><br></p>
+            <p>Estado: <em th:text="${proyecto.getEstado()}"></em><br></p>
+            <p>Tecnologías: <em th:each="tecnologia, j : ${proyecto.getTecnologias()}"
+                                th:text="${tecnologia} + '   '"></em></p><br>
+            <p th:text="${proyecto.getDescripcion()}"></p>
+            <p class="enlace" th:if="${proyecto.getEnlace() != null}"
+                                th:text="${proyecto.getEnlace()}"></p>
+            <img th:if="${proyecto.getUrlImagen()}"
+                th:href="${proyecto.getUrlImagen()}">
+        </div><br><br><br>
+    </article>
+
+    <a th:href="@{/}">volver</a>
 </body>
 </html>

@@ -3,6 +3,9 @@ package com.example.portfolio;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.ArrayList;
 
 @Controller
 public class WebController {
@@ -19,6 +22,8 @@ public class WebController {
             {"Idiomas", "Español", "Inglés"},
             {"Idiomas_AUX", "Nativo", "Nivel B1"}
     };
+
+    private ArrayList<Proyecto> proyectos = new ArrayList();
 
     @GetMapping("/")
     public String inicio (Model model) {
@@ -37,7 +42,16 @@ public class WebController {
     @GetMapping("/portfolio")
     public String portfolio (Model model){
 
+        if (proyectos.isEmpty()) {
+            proyectos.add(new Proyecto("p1", 2026, "Aplicaciones", "Es el proyecto 1", "Terminado", new String[]{"Java", "SpringBoot"}));
+            proyectos.add(new Proyecto("p2", 2026, "Diseño", "Es el proyecto 2", "Terminado", new String[]{"HTML", "CSS", "BootStrap"}));
+            proyectos.add(new Proyecto("p3", 2026, "Sitios Web", "Es el proyecto 3", "En curso", new String[]{"java", "SpringBoot"}));
+        }
+
+        model.addAttribute("proyectos", proyectos);
 
         return "portfolio";
     }
+
+
 }
