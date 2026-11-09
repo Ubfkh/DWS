@@ -13,7 +13,7 @@
 
         <p th:text="'Nombre: ' + ${cv.getNombre}"></p>
         <p th:text="'Descripción: ' + ${cv.getDescripcion}"></p>
-        <p th:text="'Contacto: ' + ${cv.getContacto()}"></p>
+        <p th:if="${!cv.getContacto().isBlank()}" th:text="'Contacto: ' + ${cv.getContacto()}"></p>
     </div>
 
     <div>
