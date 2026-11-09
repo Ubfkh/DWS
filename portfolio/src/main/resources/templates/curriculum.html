@@ -7,38 +7,55 @@
     <link rel="stylesheet" th:href="@{/estilos.css}">
 </head>
 <body>
-    <div th:each="fila, i : ${datos}"
-        th:if="${!#strings.containsIgnoreCase(fila[0], '_AUX')}">
 
-        <h1 th:text="${fila[0]} + ':'"></h1>
+    <div>
+        <h1>Perfil:</h1>
 
-        <div th:each="col, j : ${fila}"
-            th:if="${j.index > 0 and i.index + 1 < datos.length and #strings.containsIgnoreCase(datos[i.index + 1][0], '_AUX')}"
-        >
+        <p th:text="'Nombre: ' + ${cv.getNombre}"></p>
+        <p th:text="'Descripción: ' + ${cv.getDescripcion}"></p>
+        <p th:text="'Contacto: ' + ${cv.getContacto()}"></p>
+    </div>
 
-            <p>
-                <strong th:text="${col}"></strong> --- <em th:text="${datos[i.index + 1][j.index]}"
-                                                           th:class="${#strings.contains(datos[i.index + 1][j.index], 'A1')} ? 'nivel-bajo' :
-                                                                    (${#strings.contains(datos[i.index + 1][j.index], 'A2')} ? 'nivel-bajo' :
-                                                                    (${#strings.containsIgnoreCase(datos[i.index + 1][j.index], 'Bajo')} ? 'nivel-bajo' :
-                                                                    (${#strings.contains(datos[i.index + 1][j.index], 'B1')} ? 'nivel-medio' :
-                                                                    (${#strings.contains(datos[i.index + 1][j.index], 'B2')} ? 'nivel-medio' :
-                                                                    (${#strings.containsIgnoreCase(datos[i.index + 1][j.index], 'Medio')} ? 'nivel-medio' :
-                                                                    (${#strings.contains(datos[i.index + 1][j.index], 'C1')} ? 'nivel-alto' :
-                                                                    (${#strings.contains(datos[i.index + 1][j.index], 'C2')} ? 'nivel-alto' :
-                                                                    (${#strings.contains(datos[i.index + 1][j.index], 'Alto')} ? 'nivel-alto' :
-                                                                    (${#strings.contains(datos[i.index + 1][j.index], 'Nativo')} ? 'nivel-alto' : '')))))))))"></em>
-            </p>
-        </div>
+    <div>
+        <h1>Formación:</h1>
 
-        <div th:each="col, j : ${fila}"
-             th:if="${j.index > 0}"
-             th:unless="${i.index + 1 < datos.length and #strings.containsIgnoreCase(datos[i.index + 1][0], '_AUX')}"
-        >
+        <p th:each="dato, i : ${cv.getFormacion()}">
+            <strong th:text="${dato.getTitulo()}"></strong> --- <em th:text="${dato.getDetalle()}"></em>
+        </p>
+    </div>
 
-            <p th:text="${col}"></p>
+    <div>
+        <h1>Experiencia:</h1>
 
-        </div>
+        <p th:each="dato, i : ${cv.getExperiencia()}">
+            <strong th:text="${dato.getTitulo()}"></strong> --- <em th:text="${dato.getDetalle()}"></em>
+        </p>
+    </div>
+
+    <div>
+        <h1>Habilidades:</h1>
+
+        <p th:each="dato, i : ${cv.getHabilidades()}" th:switch="${dato.getDetalle()}">
+            <strong th:text="${dato.getTitulo()}"></strong> ---
+            <em th:case="'bajo'" th:class="nivel-bajo" th:text="${dato.getDetalle()}"></em>
+            <em th:case="'medio'" th:class="nivel-medio" th:text="${dato.getDetalle()}"></em>
+            <em th:case="'alto'" th:class="nivel-alto" th:text="${dato.getDetalle()}"></em>
+        </p>
+    </div>
+
+    <div>
+        <h1>Idiomas:</h1>
+
+        <p th:each="dato, i : ${cv.getIdiomas()}" th:switch="${dato.getDetalle()}">
+            <strong th:text="${dato.getTitulo()}"></strong> ---
+            <em th:case="'A1'" th:class="nivel-bajo" th:text="${dato.getDetalle()}"></em>
+            <em th:case="'A2'" th:class="nivel-bajo" th:text="${dato.getDetalle()}"></em>
+            <em th:case="'B1'" th:class="nivel-medio" th:text="${dato.getDetalle()}"></em>
+            <em th:case="'B2'" th:class="nivel-medio" th:text="${dato.getDetalle()}"></em>
+            <em th:case="'C1'" th:class="nivel-alto" th:text="${dato.getDetalle()}"></em>
+            <em th:case="'C2'" th:class="nivel-alto" th:text="${dato.getDetalle()}"></em>
+            <em th:case="'Nativo'" th:class="nivel-alto" th:text="${dato.getDetalle()}"></em>
+        </p>
     </div>
 
     <a th:href="@{/}">volver</a>

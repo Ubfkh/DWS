@@ -6,11 +6,11 @@ public class Proyecto {
     private String categoria;
     private String descripcion;
     private String estado;
-    private String [] tecnologias;
+    private String tecnologias;
     private String enlace;
     private String urlImagen;
 
-    public Proyecto(String titulo, int ano, String categoria, String descripcion, String estado, String[] tecnologias) {
+    public Proyecto(String titulo, int ano, String categoria, String descripcion, String estado, String tecnologias) {
         this.titulo = titulo;
         this.ano = ano;
         this.categoria = categoria;

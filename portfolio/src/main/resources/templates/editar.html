@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form th:action="@{/portfolio/editar}" th:object="${form}" method="post">
+        <label>Nombre:</label>
+        <input type="text" name="nombre" th:value="${cv.getNombre()}"><br>
+
+        <label>Descripción:</label>
+        <input type="text" name="descripcion" th:value="${cv.getDescripcion()}"><br>
+
+        <label>Contacto:</label>
+        <input type="text" name="contacto" th:value="${cv.getContacto()}"><br>
+
+        <h2>Formación</h2>
+        <div th:each="i : ${#numbers.sequence(0,4)}">
+            <input type="text" name="formacion" th:value="${i < cv.getFormacion().size() ? cv.getFormacion().get(i).getTitulo() : ''}">
+
+            <input type="text" name="formacionDetalle" th:value="${i < cv.getFormacion().size() ? cv.getFormacion().get(i).getDetalle() : ''}">
+        </div>
+
+        <h2>Experiencia</h2>
+        <div th:each="i : ${#numbers.sequence(0,4)}">
+            <input type="text" name="experiencia" th:value="${i < cv.getExperiencia().size() ? cv.getExperiencia().get(i).getTitulo() : ''}">
+
+            <input type="text" name="experienciaDetalle" th:value="${i < cv.getExperiencia().size() ? cv.getExperiencia().get(i).getDetalle() : ''}">
+        </div>
+
+        <h2>Habilidades</h2>
+        <div th:each="i : ${#numbers.sequence(0,4)}">
+            <input type="text" name="habilidades" th:value="${i < cv.getHabilidades().size() ? cv.getHabilidades().get(i).getTitulo() : ''}">
+
+            <select name="habilidadesDetalle">
+                <option th:each="n : ${nivelesHab}"
+                        th:value="${n}"
+                        th:text="${n}"
+                        th:selected="${i < cv.getHabilidades().size() ? n.equals(cv.getHabilidades().get(i).getDetalle()) : ''}"></option>
+            </select>
+        </div>
+
+        <h2>Idiomas</h2>
+        <div th:each="i : ${#numbers.sequence(0,4)}">
+            <input type="text" name="idiomas" th:value="${i < cv.getIdiomas().size() ? cv.getIdiomas().get(i).getTitulo() : ''}">
+
+            <select name="idiomasDetalle">
+                <option th:each="n : ${nivelesId}"
+                        th:value="${n}"
+                        th:text="${n}"
+                        th:selected="${i < cv.getIdiomas().size() ? n.equals(cv.getIdiomas().get(i).getDetalle()) : ''}"></option>
+            </select>
+        </div>
+
+        <button type="submit">Guardar</button>
+    </form>
+</body>
+</html>

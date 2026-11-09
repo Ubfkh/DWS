@@ -5,7 +5,17 @@
     <title>Portfolio</title>
 </head>
 <body>
-    <article th:each="proyecto, i : ${proyectos}">
+    <form>
+        <select name="categoria" onchange="this.form.submit()">
+            <option th:each="categoria, i : ${categorias}"
+                    th:value="${categoria}"
+                    th:text="${categoria}"
+                    th:selected="${categoria.equals(categoriaSelec)}"></option>
+        </select>
+    </form>
+
+    <article th:if="${!proyectos.isEmpty()}"
+            th:each="proyecto, i : ${proyectos}">
         <p>
             <strong th:text="${proyecto.getTitulo()}"></strong> --- <em th:text="${proyecto.getAno()}"></em>
         </p><br>
@@ -13,8 +23,7 @@
         <div>
             <p>Categoría: <em th:text="${proyecto.getCategoria()}"></em><br></p>
             <p>Estado: <em th:text="${proyecto.getEstado()}"></em><br></p>
-            <p>Tecnologías: <em th:each="tecnologia, j : ${proyecto.getTecnologias()}"
-                                th:text="${tecnologia} + '   '"></em></p><br>
+            <p>Tecnologías: <em th:text="${proyecto.getTecnologias()}"></em></p><br>
             <p th:text="${proyecto.getDescripcion()}"></p>
             <p class="enlace" th:if="${proyecto.getEnlace() != null}"
                                 th:text="${proyecto.getEnlace()}"></p>
@@ -23,6 +32,9 @@
         </div><br><br><br>
     </article>
 
+    <h1 th:if="${proyectos.isEmpty()}">No hay resultados</h1>
+
+    <a th:href="@{/portfolio/editar}">Editar</a><br>
     <a th:href="@{/}">volver</a>
 </body>
 </html>
