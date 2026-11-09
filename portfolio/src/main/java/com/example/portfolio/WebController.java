@@ -23,6 +23,8 @@ public class WebController {
     private final String[] categorias = {"Todos", "Aplicaciones", "Sitios Web", "Diseño"};
     private final String[] nivelesHab = {"bajo", "medio", "alto", ""};
     private final String[] nivelesId = {"A1", "A2", "B1", "B2", "C1", "C2", "Nativo", ""};
+    private final String[] categorias2 = {"Aplicaciones", "Sitios Web", "Diseño", ""};
+    private final String[] estados = {"En curso", "Terminado", ""};
 
     @GetMapping("/")
     public String inicio (Model model) {
@@ -91,6 +93,8 @@ public class WebController {
         model.addAttribute("cv", cv);
         model.addAttribute("nivelesHab", nivelesHab);
         model.addAttribute("nivelesId", nivelesId);
+        model.addAttribute("categorias", categorias2);
+        model.addAttribute("estados", estados);
 
         return "editar";
     }

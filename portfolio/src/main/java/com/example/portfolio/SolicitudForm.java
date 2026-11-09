@@ -17,8 +17,8 @@ public class SolicitudForm {
     @Email(message = "Pon un formato válido")
     private String contacto;
 
-    private final ArrayList<String> formacion = new ArrayList();
-    private final ArrayList<String> formacionDetalle = new ArrayList();
+    private ArrayList<String> formacion = new ArrayList();
+    private ArrayList<String> formacionDetalle = new ArrayList();
 
     @AssertTrue(message = "En Formación, rellena los dos campos de cada fila o déjalos vacíos")
     public boolean isFormacionCompleta() {

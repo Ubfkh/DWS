@@ -39,7 +39,7 @@ public class Proyecto {
         return enlace;
     }
 
-    public String[] getTecnologias() {
+    public String getTecnologias() {
         return tecnologias;
     }
 

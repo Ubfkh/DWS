@@ -53,6 +53,32 @@
             </select>
         </div>
 
+        <h2>Proyectos</h2>
+        <div th:each="i : ${#numbers.sequence(0,4)}">
+            <input type="text" name="proTitulo">
+
+            <input type="number" name="proAno">
+
+            <select name="proCategoria">
+                <option th:each="c : ${categorias}"
+                        th:value="${c}"
+                        th:text="${c}"></option>
+            </select>
+
+            <input type="text" name="proDescripcion">
+
+            <select name="proEstado">
+                <option th:each="e : ${estados}"
+                        th:value="${e}"
+                        th:text="${e}"></option>
+            </select>
+
+            <input type="text" name="proTecnologias">
+
+            <input type="text" name="proEnlace">
+
+            <input type="text" name="proUrlImagen">
+        </div>
         <button type="submit">Guardar</button>
     </form>
 </body>
