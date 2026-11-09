@@ -5,6 +5,7 @@
     <title>Portfolio</title>
 </head>
 <body>
+    <!-- Este es el filtro para filtrar los proyectos por categoría -->
     <form>
         <select name="categoria" onchange="this.form.submit()">
             <option th:each="categoria, i : ${categorias}"
@@ -14,6 +15,7 @@
         </select>
     </form>
 
+    <!-- Este es el artículo de los proyectos tiene un título con el título y en un div un p por cada atributo -->
     <article th:if="${!proyectos.isEmpty()}"
             th:each="proyecto, i : ${proyectos}">
         <p>

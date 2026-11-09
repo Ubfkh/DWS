@@ -5,7 +5,9 @@
     <title>Title</title>
 </head>
 <body>
+    <!-- Este es el formulario, que al enviarse llamará al PostMapping -->
     <form th:action="@{/portfolio/editar}" th:object="${form}" method="post">
+        <!-- Estos tres primeros inputs son para el perfil, como valores iniciales tiene los guardados -->
         <label>Nombre:</label>
         <input type="text" name="nombre" th:value="${cv.getNombre()}"><br>
 
@@ -15,6 +17,7 @@
         <label>Contacto:</label>
         <input type="text" name="contacto" th:value="${cv.getContacto()}"><br>
 
+        <!-- Hacemos lo mismo con la formación y la experiencia laboral -->
         <h2>Formación</h2>
         <div th:each="i : ${#numbers.sequence(0,4)}">
             <label>Estudios: </label>
@@ -33,6 +36,7 @@
             <input type="text" name="experienciaDetalle" th:value="${i < cv.getExperiencia().size() ? cv.getExperiencia().get(i).getDetalle() : ''}">
         </div>
 
+        <!-- Las habilidades y los idiomas necesitan un select para elegir su nivel, no otro, pero las opciones vienen de un array del controlador -->
         <h2>Habilidades</h2>
         <div th:each="i : ${#numbers.sequence(0,4)}">
             <label>Habilidad: </label>
@@ -61,6 +65,7 @@
             </select>
         </div>
 
+        <!-- Esto añade una serie de inputs para cada proyecto, uno por cada atributo del mismo. Con los selects se hace lo mismo que en habilidades e idiomas -->
         <h2>Proyectos</h2>
         <div th:each="proyecto, i : ${proyectos}">
             <label>Nombre: </label>
@@ -97,10 +102,15 @@
             <label>Imagen: </label>
             <input type="text" name="proUrlImagen" th:text="${proyecto.getUrlImagen()}">
 
+            <!-- El botón de borrar cambia el PostMapping al que se va a dirigir el formulario para poder usar otra lógica -->
             <button type="submit" name="indiceBorrar" th:value="${i.index}" th:formaction="@{/portfolio/borrarProyecto}">Borrar</button>
         </div>
+
+        <!-- Este botón sirve para añadir un proyecto, sigue la misma lógica que el de borrar -->
         <button type="submit" th:formaction="@{/portfolio/anadirProyecto}"
                                 th:if="${proyectos.size() < 5}">Añadir proyecto</button>
+
+        <!-- El botón de guardar para guardar los cambios, siempre y cuando estén bien -->
         <button type="submit">Guardar</button>
     </form>
 </body>

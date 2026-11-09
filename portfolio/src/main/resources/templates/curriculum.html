@@ -8,6 +8,7 @@
 </head>
 <body>
 
+    <!-- Esto solo coge los atributos de la clase cv que le da el controlador y va poniendo cada información en su sitio -->
     <div>
         <h1>Perfil:</h1>
 
@@ -37,6 +38,7 @@
 
         <p th:each="dato, i : ${cv.getHabilidades()}" th:switch="${dato.getDetalle()}">
             <strong th:text="${dato.getTitulo()}"></strong> ---
+            <!-- Aquí, al igual que en el apartado de idiomas, se elige la clase que tendrá el em según el valor de su contenido, para poder añadirle luego el css correspondiente -->
             <em th:case="'bajo'" th:class="nivel-bajo" th:text="${dato.getDetalle()}"></em>
             <em th:case="'medio'" th:class="nivel-medio" th:text="${dato.getDetalle()}"></em>
             <em th:case="'alto'" th:class="nivel-alto" th:text="${dato.getDetalle()}"></em>
