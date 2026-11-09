@@ -17,22 +17,28 @@
 
         <h2>Formación</h2>
         <div th:each="i : ${#numbers.sequence(0,4)}">
+            <label>Estudios: </label>
             <input type="text" name="formacion" th:value="${i < cv.getFormacion().size() ? cv.getFormacion().get(i).getTitulo() : ''}">
 
+            <label>Centro: </label>
             <input type="text" name="formacionDetalle" th:value="${i < cv.getFormacion().size() ? cv.getFormacion().get(i).getDetalle() : ''}">
         </div>
 
         <h2>Experiencia</h2>
         <div th:each="i : ${#numbers.sequence(0,4)}">
+            <label>Empresa: </label>
             <input type="text" name="experiencia" th:value="${i < cv.getExperiencia().size() ? cv.getExperiencia().get(i).getTitulo() : ''}">
 
+            <label>Rango de tiempo: </label>
             <input type="text" name="experienciaDetalle" th:value="${i < cv.getExperiencia().size() ? cv.getExperiencia().get(i).getDetalle() : ''}">
         </div>
 
         <h2>Habilidades</h2>
         <div th:each="i : ${#numbers.sequence(0,4)}">
+            <label>Habilidad: </label>
             <input type="text" name="habilidades" th:value="${i < cv.getHabilidades().size() ? cv.getHabilidades().get(i).getTitulo() : ''}">
 
+            <label>Nivel: </label>
             <select name="habilidadesDetalle">
                 <option th:each="n : ${nivelesHab}"
                         th:value="${n}"
@@ -43,8 +49,10 @@
 
         <h2>Idiomas</h2>
         <div th:each="i : ${#numbers.sequence(0,4)}">
+            <label>Idioma: </label>
             <input type="text" name="idiomas" th:value="${i < cv.getIdiomas().size() ? cv.getIdiomas().get(i).getTitulo() : ''}">
 
+            <label>Nivel: </label>
             <select name="idiomasDetalle">
                 <option th:each="n : ${nivelesId}"
                         th:value="${n}"
@@ -55,28 +63,36 @@
 
         <h2>Proyectos</h2>
         <div th:each="i : ${#numbers.sequence(0,4)}">
+            <label>Nombre: </label>
             <input type="text" name="proTitulo">
 
+            <label>Año: </label>
             <input type="number" name="proAno">
 
+            <label>Categoría: </label>
             <select name="proCategoria">
                 <option th:each="c : ${categorias}"
                         th:value="${c}"
                         th:text="${c}"></option>
             </select>
 
+            <label>Descripción: </label>
             <input type="text" name="proDescripcion">
 
+            <label>Estado: </label>
             <select name="proEstado">
                 <option th:each="e : ${estados}"
                         th:value="${e}"
                         th:text="${e}"></option>
             </select>
 
+            <label>Tecnologías usadas: </label>
             <input type="text" name="proTecnologias">
 
+            <label>Enlace: </label>
             <input type="text" name="proEnlace">
 
+            <label>Imagen: </label>
             <input type="text" name="proUrlImagen">
         </div>
         <button type="submit">Guardar</button>
