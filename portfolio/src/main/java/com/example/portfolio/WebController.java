@@ -15,6 +15,8 @@ import java.util.ArrayList;
 public class WebController {
 
     private boolean iniciado = false;
+    private boolean reiniciarProyectos = true;
+    private int nPro = 0;
 
     private CV cv = new CV();
 
@@ -23,8 +25,8 @@ public class WebController {
     private final String[] categorias = {"Todos", "Aplicaciones", "Sitios Web", "Diseño"};
     private final String[] nivelesHab = {"bajo", "medio", "alto", ""};
     private final String[] nivelesId = {"A1", "A2", "B1", "B2", "C1", "C2", "Nativo", ""};
-    private final String[] categorias2 = {"", "Aplicaciones", "Sitios Web", "Diseño"};
-    private final String[] estados = {"", "En curso", "Terminado"};
+    private final String[] categorias2 = {"Aplicaciones", "Sitios Web", "Diseño", ""};
+    private final String[] estados = {"En curso", "Terminado", ""};
 
     @GetMapping("/")
     public String inicio (Model model) {
@@ -90,11 +92,19 @@ public class WebController {
 
     @GetMapping("/portfolio/editar")
     public String editar (Model model){
+        if (reiniciarProyectos){
+            proyectos = new ArrayList<>();
+            proyectos.add(new Proyecto("", 0, "", "", "", ""));
+            nPro = proyectos.size();
+            reiniciarProyectos = false;
+        }
+
         model.addAttribute("cv", cv);
         model.addAttribute("nivelesHab", nivelesHab);
         model.addAttribute("nivelesId", nivelesId);
         model.addAttribute("categorias", categorias2);
         model.addAttribute("estados", estados);
+        model.addAttribute("proyectos", proyectos);
 
         return "editar";
     }
@@ -103,6 +113,11 @@ public class WebController {
     public String guardar (@Valid @ModelAttribute("form") SolicitudForm form, BindingResult result, Model model){
         if (result.hasErrors()){
             model.addAttribute("cv", cv);
+            model.addAttribute("nivelesHab", nivelesHab);
+            model.addAttribute("nivelesId", nivelesId);
+            model.addAttribute("categorias", categorias2);
+            model.addAttribute("estados", estados);
+            model.addAttribute("proyectos", proyectos);
             return "editar";
         }
 
@@ -155,6 +170,85 @@ public class WebController {
             }
         }
 
+        nPro = proyectos.size();
+        reiniciarProyectos = true;
+
         return "redirect:/";
+    }
+
+    @PostMapping("/portfolio/anadirProyecto")
+    public String anadirProyecto (@ModelAttribute("form") SolicitudForm form, Model model){
+
+        proyectos = new ArrayList();
+
+        for (int i=0; i < nPro; i++){
+            Proyecto p = null;
+
+            p = new Proyecto(i < form.getProTitulo().size() ? form.getProTitulo().get(i) : "",
+                            i < form.getProAno().size() ? form.getProAno().get(i) : 0,
+                            i < form.getProCategoria().size() ? form.getProCategoria().get(i) : "",
+                            i < form.getProDescripcion().size() ? form.getProDescripcion().get(i) : "",
+                            i < form.getProEstado().size() ? form.getProEstado().get(i) : "",
+                            i < form.getProTecnologias().size() ? form.getProTecnologias().get(i) : "");
+
+
+            p.setEnlace(i < form.getProEnlace().size() ? form.getProEnlace().get(i) : "");
+            p.setUrlImagen(i < form.getProUrlImagen().size() ? form.getProUrlImagen().get(i) : "");
+
+            proyectos.add(p);
+        }
+
+        proyectos.add(new Proyecto("", 0, "", "", "", ""));
+
+        nPro = proyectos.size();
+
+        model.addAttribute("cv", cv);
+        model.addAttribute("nivelesHab", nivelesHab);
+        model.addAttribute("nivelesId", nivelesId);
+        model.addAttribute("categorias", categorias2);
+        model.addAttribute("estados", estados);
+        model.addAttribute("proyectos", proyectos);
+
+        return "editar";
+    }
+
+    @PostMapping("/portfolio/borrarProyecto")
+    public String borrarProyecto (@RequestParam int indiceBorrar,@ModelAttribute("form") SolicitudForm form, Model model){
+        proyectos = new ArrayList();
+
+        for (int i=0; i < nPro; i++){
+            Proyecto p = null;
+
+            p = new Proyecto(i < form.getProTitulo().size() ? form.getProTitulo().get(i) : "",
+                    i < form.getProAno().size() ? form.getProAno().get(i) : 0,
+                    i < form.getProCategoria().size() ? form.getProCategoria().get(i) : "",
+                    i < form.getProDescripcion().size() ? form.getProDescripcion().get(i) : "",
+                    i < form.getProEstado().size() ? form.getProEstado().get(i) : "",
+                    i < form.getProTecnologias().size() ? form.getProTecnologias().get(i) : "");
+
+
+            p.setEnlace(i < form.getProEnlace().size() ? form.getProEnlace().get(i) : "");
+            p.setUrlImagen(i < form.getProUrlImagen().size() ? form.getProUrlImagen().get(i) : "");
+
+            proyectos.add(p);
+        }
+
+        if (indiceBorrar >= 0 && indiceBorrar < proyectos.size()){
+            proyectos.remove(indiceBorrar);
+        }
+
+        if (proyectos.isEmpty())
+            proyectos.add(new Proyecto("", 0, "", "", "", ""));
+
+        nPro = proyectos.size();
+
+        model.addAttribute("cv", cv);
+        model.addAttribute("nivelesHab", nivelesHab);
+        model.addAttribute("nivelesId", nivelesId);
+        model.addAttribute("categorias", categorias2);
+        model.addAttribute("estados", estados);
+        model.addAttribute("proyectos", proyectos);
+
+        return "editar";
     }
 }
