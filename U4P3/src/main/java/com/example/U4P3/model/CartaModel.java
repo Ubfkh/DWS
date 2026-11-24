@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Table(name="Carta")
 @Getter
@@ -12,7 +14,7 @@ public class CartaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(nullable = false, unique = true)
     private String nombre;
@@ -37,4 +39,13 @@ public class CartaModel {
 
     @Column
     private String resistencia;
+
+    @Column (nullable = false)
+    private Date fechaSalida;
+
+    @Column (nullable = false)
+    private boolean legalCommander;
+
+    @Column (nullable = false)
+    private String imgurl;
 }
