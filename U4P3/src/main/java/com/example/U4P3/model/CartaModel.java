@@ -1,3 +1,4 @@
+
 package com.example.U4P3.model;
 
 import jakarta.persistence.*;
@@ -14,7 +15,7 @@ public class CartaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(nullable = false, unique = true)
     private String nombre;
@@ -28,9 +29,11 @@ public class CartaModel {
     @Column(nullable = false)
     private String tipo;
 
-    @Column(nullable = false)
+    @Column
     private String subtipo;
 
+    // @Lob permite almacenar textos de mayor longitud que un VARCHAR convencional.
+    @Lob
     @Column
     private String texto;
 
@@ -40,12 +43,14 @@ public class CartaModel {
     @Column
     private String resistencia;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private Date fechaSalida;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private boolean legalCommander;
 
-    @Column (nullable = false)
+    // Se utiliza @Lob para poder almacenar imágenes codificadas en Base64 sin el límite habitual de 255 caracteres.
+    @Lob
+    @Column(nullable = false)
     private String imgurl;
 }

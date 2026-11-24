@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTG Collection</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+        body {
+            background: #171717;
+            color: white;
+        }
+
+        .navbar {
+            background: #252525;
+            border-bottom: 2px solid #b08d36;
+        }
+
+        .titulo {
+            color: #d4af37;
+            font-weight: bold;
+        }
+
+        .contenedor {
+            background: #252525;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 30px;
+            border: 1px solid #444;
+        }
+
+        .form-label {
+            color: #e0c878;
+        }
+
+        .form-control, .form-select {
+            background: #333;
+            color: white;
+            border: 1px solid #555;
+        }
+
+        .form-control:focus {
+            background: #444;
+            color: white;
+            border-color: #d4af37;
+            box-shadow: none;
+        }
+
+        .form-control::placeholder {
+            color: #aaa;
+        }
+
+        .carta {
+            background: #252525;
+            border: 1px solid #b08d36;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 100%;
+            transition: transform .2s;
+        }
+
+        .carta:hover {
+            transform: translateY(-5px);
+        }
+
+        .carta img {
+            width: 100%;
+            height: 280px;
+            object-fit: contain;
+            background: #111;
+        }
+
+        .carta-body {
+            padding: 15px;
+        }
+
+        .btn-magic {
+            background: #b08d36;
+            color: black;
+            font-weight: bold;
+        }
+
+        .btn-magic:hover {
+            background: #d4af37;
+            color: black;
+        }
+
+        .error {
+            color: #ff7777;
+            font-size: .85rem;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark">
+    <div class="container">
+        <a class="navbar-brand titulo" href="/">
+            ⚔ MTG COLLECTION
+        </a>
+        <span class="text-light">Tu colección de Magic</span>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- FORMULARIO -->
+    <div class="contenedor">
+
+        <h2 class="titulo mb-4">✦ Añadir nueva carta</h2>
+
+        <form th:action="@{/cartas/guardar}"
+              th:object="${dtoform}"
+              method="post">
+
+            <div class="row g-3">
+
+                <!-- NOMBRE -->
+                <div class="col-md-6">
+                    <label class="form-label">Nombre *</label>
+                    <input type="text" class="form-control"
+                           th:field="*{nombre}"
+                           placeholder="Ej: Black Lotus">
+                    <small class="error"
+                           th:errors="*{nombre}"></small>
+                </div>
+
+                <!-- VALOR MANA -->
+                <div class="col-md-6">
+                    <label class="form-label">Valor de maná *</label>
+                    <input type="text" class="form-control"
+                           th:field="*{valorMana}"
+                           placeholder="Ej: {2}{U}{U}">
+                    <small class="error"
+                           th:errors="*{valorMana}"></small>
+                </div>
+
+                <!-- SUPERTIPO -->
+                <div class="col-md-6">
+                    <label class="form-label">Supertipo</label>
+                    <input type="text" class="form-control"
+                           th:field="*{supertipo}"
+                           placeholder="Ej: Legendary">
+                    <small class="error"
+                           th:errors="*{supertipo}"></small>
+                </div>
+
+                <!-- TIPO -->
+                <div class="col-md-6">
+                    <label class="form-label">Tipo *</label>
+                    <input type="text" class="form-control"
+                           th:field="*{tipo}"
+                           placeholder="Ej: Creature">
+                    <small class="error"
+                           th:errors="*{tipo}"></small>
+                </div>
+
+                <!-- SUBTIPO -->
+                <div class="col-md-6">
+                    <label class="form-label">Subtipo *</label>
+                    <input type="text" class="form-control"
+                           th:field="*{subtipo}"
+                           placeholder="Ej: Human Wizard">
+                    <small class="error"
+                           th:errors="*{subtipo}"></small>
+                </div>
+
+                <!-- TEXTO -->
+                <div class="col-md-6">
+                    <label class="form-label">Texto de la carta</label>
+                    <textarea class="form-control"
+                              th:field="*{texto}"
+                              rows="2"
+                              placeholder="Habilidades y descripción"></textarea>
+                    <small class="error"
+                           th:errors="*{texto}"></small>
+                </div>
+
+                <!-- FUERZA -->
+                <div class="col-md-6">
+                    <label class="form-label">Fuerza</label>
+                    <input type="text" class="form-control"
+                           th:field="*{fuerza}"
+                           placeholder="Ej: 3 o *+1">
+                    <small class="error"
+                           th:errors="*{fuerza}"></small>
+                </div>
+
+                <!-- RESISTENCIA -->
+                <div class="col-md-6">
+                    <label class="form-label">Resistencia</label>
+                    <input type="text" class="form-control"
+                           th:field="*{resistencia}"
+                           placeholder="Ej: 4 o *-2">
+                    <small class="error"
+                           th:errors="*{resistencia}"></small>
+                </div>
+
+                <!-- FECHA -->
+                <div class="col-md-6">
+                    <label class="form-label">Fecha de salida *</label>
+                    <input type="date" class="form-control"
+                           th:field="*{fechaSalida}">
+                    <small class="error"
+                           th:errors="*{fechaSalida}"></small>
+                </div>
+
+                <!-- IMAGEN -->
+                <div class="col-md-6">
+                    <label class="form-label">URL de la imagen *</label>
+                    <input type="url" class="form-control"
+                           th:field="*{imgurl}"
+                           placeholder="https://...">
+                    <small class="error"
+                           th:errors="*{imgurl}"></small>
+                </div>
+
+                <!-- LEGAL COMMANDER -->
+                <div class="col-12">
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               th:field="*{legalCommander}">
+                        <label class="form-check-label">
+                            Legal en Commander
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-magic w-100">
+                        ✦ Guardar carta
+                    </button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+
+    <!-- LISTADO DE CARTAS -->
+    <div class="contenedor mb-5">
+
+        <h2 class="titulo mb-4">📖 Mi colección</h2>
+
+        <div th:if="${#lists.isEmpty(cartas)}"
+             class="alert alert-secondary">
+            Todavía no tienes cartas guardadas.
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-4 col-lg-3"
+                 th:each="carta : ${cartas}">
+
+                <div class="carta">
+
+                    <img th:src="${carta.imgurl}"
+                         th:alt="${carta.nombre}"
+                         onerror="this.style.display='none'">
+
+                    <div class="carta-body">
+
+                        <h5 class="titulo"
+                            th:text="${carta.nombre}">
+                            Nombre
+                        </h5>
+
+                        <p class="mb-1">
+                            <strong>Maná:</strong>
+                            <span th:text="${carta.valorMana}"></span>
+                        </p>
+
+                        <p class="mb-1">
+                            <strong>Tipo:</strong>
+                            <span th:text="${carta.tipo}"></span>
+                        </p>
+
+                        <p class="mb-1">
+                            <strong>Subtipo:</strong>
+                            <span th:text="${carta.subtipo}"></span>
+                        </p>
+
+                        <p class="mb-1">
+                            <strong>Fuerza/Resistencia:</strong>
+                            <span th:text="${carta.fuerza}"></span>
+                            /
+                            <span th:text="${carta.resistencia}"></span>
+                        </p>
+
+                        <p class="mb-1">
+                            <strong>Commander:</strong>
+                            <span th:text="${carta.legalCommander ? 'Sí' : 'No'}"></span>
+                        </p>
+
+                        <p class="small text-secondary"
+                           th:text="${carta.texto}">
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
